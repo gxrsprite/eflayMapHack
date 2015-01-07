@@ -1,0 +1,993 @@
+BOOL HackOn_120E()
+{
+
+	DWORD GameAddr=(DWORD)GetModuleHandle(L"game.dll");
+	DWORD oldpro;
+	BYTE _data[36];
+	BYTE  *p=b120E;
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x704000,PAGE_EXECUTE_READWRITE,&oldpro);
+
+	///////////////////////////////////////////////////大地图去除迷雾
+	if(*p++)
+	{
+		patch(0x406B53,"\x90\x8B\x09");
+
+	}
+	///////////////////////////////////////////////////大地图显示单位
+	if(*p++)
+	{
+		patch(0x2A0930,"\xD2");
+
+	}
+	///////////////////////////////////////////////////大地图显示隐形
+	if(*p++)
+	{
+		patch(0x17D4C2,"\x90\x90");
+		patch(0x17D4CC,"\xEB\x00\xEB\x00\x75\x30");
+	}
+	///////////////////////////////////////////////////////分辨幻影
+	if(*p++)
+	{
+		patch(0x1ACFFC,"\x40\xC3");
+	}
+	///////////////////////////////////////////////////////显示神符
+	if(*p++)
+	{
+		patch(0x2A07C5,"\x49\x4B\x33\xDB\x33\xC9");
+	}
+	///////////////////////////////////////////////////小地图去除迷雾
+	if(*p++)
+	{
+		patch(0x147C53,"\xEC");
+	}
+	//////////////////////////////////////////////////////显示单位
+	if(*p++)
+	{
+		patch(0x1491A8, "\x00");
+	}
+	/////////////////////////////////////////////////////显示隐形
+	if(*p++)
+	{
+		patch(0x1494E0,"\x33\xC0\x0F\x85");
+	}
+	////////////////////////////////////////////////////敌方信号
+	if(*p++)
+	{
+		patch(0x321CC4,"\x39\xC0\x0F\x85");
+		patch(0x321CD7,"\x39\xC0\x75");
+	}
+	//////////////////////////////////////////////////他人提示
+	if(*p++)
+	{
+		patch(0x124DDD,"\x39\xC0\x0F\x85");
+	}
+	/////////////////////////////////////////////////显示敌方头像
+	if(*p++)
+	{
+		patch(0x137BA5,"\xE7\x7D");
+		patch(0x137BAC,"\x85\xA3\x02\x00\x00\xEB\xCE\x90\x90\x90\x90");
+	}
+	//////////////////////////////////////////////////盟友头像
+	if(*p++)
+	{
+		patch(0x137BA5,"\xE7\x7D");
+		patch(0x137BB1,"\xEB\xCE\x90\x90\x90\x90");
+	}
+	//////////////////////////////////////////////数字显攻速
+	if(*p++)
+	{
+		patch(0x802E67,"\x32"); //33
+		patch(0x13BA61,"\x90\xD9\x45\x08\x83\xEC\x08\xDD\x1C\x24\x68");
+		DWORD tmp=0x802E64+GameAddr;
+		memcpy(LPVOID(GameAddr+0x13BA6C),&tmp,4);
+		patch(0x13BA70,"\x8D\x55\xA0\x6A\x7F\x52\xE8\x27\x7E\x25\x00\x83\xC4\x14\x6A\x7F\x8D\x45\xA0\x50");
+		
+		//13b400  909090  D86208
+		
+	}
+	/////////////////////////////////////////////数字显移速
+	if(*p++)
+	{
+		patch(0x802E67,"\x32");
+		patch(0x13C3F2,"\x90\xD9\x45\x08\x83\xEC\x08\xDD\x1C\x24\x68");
+		DWORD tmp=0x802E64+GameAddr;
+		memcpy(LPVOID(GameAddr+0x13C3FD),&tmp,4);
+		patch(0x13C401,"\x8D\x55\x98\x6A\x7F\x52\xE8\x96\x74\x25\x00\x83\xC4\x14\x6A\x7F\x8D\x45\x98\x50");
+	}
+	//////////////////////////////////////////////资源面板
+	if(*p++)
+	{
+		patch(0x13EF03,"\xEB");
+	}
+	/////////////////////////////////////////////允许交易
+	if(*p++)
+	{
+		patch(0x127B3D,"\x40\xB8\x64");
+	}
+	//////////////////////////////////////////////显示技能
+	if(*p++)
+	{
+		patch(0x12DC1A,"\x33");
+		patch(0x12DC1B,"\xC0");
+		patch(0x12DC5A,"\x33");
+		patch(0x12DC5B,"\xC0");
+		patch(0x1BFABE,"\xEB");
+		patch(0x442CC0,"\x90");
+		patch(0x442CC1,"\x40");
+		patch(0x442CC2,"\x30");
+		patch(0x442CC3,"\xC0");
+		patch(0x442CC4,"\x90");
+		patch(0x442CC5,"\x90");
+		patch(0x443375,"\x30");
+		patch(0x443376,"\xC0");
+		patch(0x45A641,"\x90");
+		patch(0x45A642,"\x90");
+		patch(0x45A643,"\x33");
+		patch(0x45A644,"\xC0");
+		patch(0x45A645,"\x90");
+		patch(0x45A646,"\x90");
+		patch(0x45E79E,"\x90");
+		patch(0x45E79F,"\x90");
+		patch(0x45E7A0,"\x33");
+		patch(0x45E7A1,"\xC0");
+		patch(0x45E7A2,"\x90");
+		patch(0x45E7A3,"\x90");
+		patch(0x466527,"\x90");
+		patch(0x466528,"\x90");
+		patch(0x46B258,"\x90");
+		patch(0x46B259,"\x33");
+		patch(0x46B25A,"\xC0");
+		patch(0x46B25B,"\x90");
+		patch(0x46B25C,"\x90");
+		patch(0x46B25D,"\x90");
+		patch(0x4A11A0,"\x33");
+		patch(0x4A11A1,"\xC0");
+		patch(0x54C0BF,"\x90");
+		patch(0x54C0C0,"\x33");
+		patch(0x54C0C1,"\xC0");
+		patch(0x54C0C2,"\x90");
+		patch(0x54C0C3,"\x90");
+		patch(0x54C0C4,"\x90");
+		patch(0x5573FE,"\x90");
+		patch(0x5573FF,"\x90");
+		patch(0x557400,"\x90");
+		patch(0x557401,"\x90");
+		patch(0x557402,"\x90");
+		patch(0x557403,"\x90");
+		patch(0x55E15C,"\x90");
+		patch(0x55E15D,"\x90");
+	}
+	///////////////////////////////////////////////资源条
+
+	if(*p++)
+	{
+		patch(0x150981,"\xEB\x02");
+		patch(0x1509FE,"\xEB\x02");
+		patch(0x151597,"\xEB\x02");
+		patch(0x151647,"\xEB\x02");
+		patch(0x151748,"\xEB\x02");
+		patch(0x1BED19,"\xEB\x02");
+		patch(0x314A9E,"\xEB\x02");
+		patch(0x21EAD4,"\xEB");
+		patch(0x21EAE8,"\x03");
+	}
+	/////////////////////////////////////////////////野外显血
+	if(*p++)
+	{
+		patch(0x166E5E,"\x90\x90\x90\x90\x90\x90\x90\x90");
+		patch(0x16FE0A,"\x33\xC0\x90\x90");
+	}
+	////////////////////////////////////////////////视野外点选
+	if(*p++)
+	{
+		patch(0x1BD5A7,"\x90\x90");
+		patch(0x1BD5BB,"\xEB");
+	}
+	/////////////////////////////////////////////////无限取消
+	if(*p++)
+	{
+		patch(0x23D60F,"\xEB");
+		patch(0x21EAD4,"\x03");
+		patch(0x21EAE8,"\x03");
+	}
+	//////////////////////////////////////////////////过-MH
+	if(*p++)
+	{
+		patch(0x2C5A7E,"\x90\x90");
+	}
+
+	/////////////////////////////////////////反-AH
+	if(*p++)
+	{
+		patch(0x2C240C,"\x3C\x4C\x74\x04\xB0\xFF\xEB\x04\xB0\xB0\x90\x90");
+		patch(0x2D34ED,"\xE9\xB3\x00\x00\x00\x90");
+
+	}
+	////////////////////////////////////////////////////////////
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x704000,oldpro,&oldpro);
+	return TRUE;
+}
+BOOL HackOn_124B()
+{
+	DWORD GameAddr=(DWORD)GetModuleHandle(L"game.dll");
+	DWORD oldpro;
+	BYTE *p=b124B;
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x87E000,PAGE_EXECUTE_READWRITE,&oldpro);
+	/////////////////////////////////////////////////////////////////////大地图去除迷雾
+	if(*p++)
+	{
+		patch(0x74D103,"\xC6\x04\x3E\x01\x90\x46");
+	}
+	///////////////////////////////////////////////////////大地图显示单位
+	if(*p++)
+	{
+		patch(0x3A201D, "\xEB");
+	}
+	////////////////////////////////////////////////////////大地图显示隐形
+	if(*p++)
+	{
+
+
+		patch(0x3622D1,"\x3B");
+		patch(0x3622D4,"\x85");
+
+		patch(0x39A45B,"\x90\x90\x90\x90\x90\x90");
+		patch(0x39A46E,"\x90\x90\x90\x90\x90\x90\x90\x90\x33\xC0\x40");
+	}
+	/////////////////////////////////////////////////////分辨幻影
+	if(*p++)
+	{
+
+
+		patch(0x28351C,"\x40\xC3");
+	}
+	/////////////////////////////////////////////////////显示神符
+	if(*p++)
+	{
+
+
+		patch(0x4076CA,"\x90\x90");
+
+		patch(0x3A1F5B,"\xEB");
+	}
+	///////////////////////////////////////////////////////小地图去除迷雾
+	if(*p++)
+	{
+		patch(0x356FA5,"\x90\x90");
+	}
+	/////////////////////////////////////////////////////小地图显示单位
+
+	if(*p++)
+	{
+		patch(0x361EAB,"\x90\x90\x39\x5E\x10\x90\x90\xB8\x00\x00\x00\x00\xEB\x07");
+	}
+
+	///////////////////////////////////////////////////////小地图显示隐形
+
+	if(*p++)
+	{
+		patch(0x361EBC,"\x00");
+
+	}
+	//////////////////////////////////////////////////////敌方信号
+	if(*p++)
+	{
+
+		patch(0x43F956,"\x3B");
+		patch(0x43F959,"\x85");
+		patch(0x43F969,"\x3B");
+		patch(0x43F96C,"\x85");
+	}
+	////////////////////////////////////////////////////////他人提示
+	if(*p++)
+	{
+		patch(0x334529,"\x39\xC0\x0F\x85");
+	}
+	///////////////////////////////////////////////////////敌人头像
+	if(*p++)
+	{
+		patch(0x371640,"\xE8\x3B\x28\x03\x00\x85\xC0\x0F\x85\x8F\x02\x00\x00\xEB\xC9\x90\x90\x90\x90");
+	}
+
+	/////////////////////////////////////////////////////盟友头像
+	if(*p++)
+	{
+		patch(0x371640,"\xE8\x3B\x28\x03\x00\x85\xC0\x0F\x84\x8F\x02\x00\x00\xEB\xC9\x90\x90\x90\x90");
+	}
+	////////////////////////////////////////////////////////////数显攻速
+	if(*p++)
+	{
+		patch(0x87E9A3,"\x25\x30\x2E\x32\x66\x7C\x52\x00");
+		patch(0x87E9B0,"\x8D\x4C\x24\x18\xD9\x44\x24\x60\x83\xEC\x08\xDD\x1C\x24\x68");
+		DWORD tmp=0x87E9A3+GameAddr;
+		memcpy(LPVOID(GameAddr+0x87E9BF),&tmp,4);
+		patch(0x87E9C3,"\x57\x51\xE8\xBC\xD2\xE6\xFF\x83\xC4\x14\x58\x57\x8D\x4C\x24\x18\xFF\xE0");
+		patch(0x339D34,"\xE8\x77\x4C\x54\x00");
+
+	}
+	//////////////////////////////////////////////////////////数显移速
+	if(*p++)
+	{
+		patch(0x87E9A3,"\x25\x30\x2E\x32\x66\x7C\x52\x00");
+		patch(0x87E9B0,"\x8D\x4C\x24\x18\xD9\x44\x24\x60\x83\xEC\x08\xDD\x1C\x24\x68");
+		DWORD tmp=0x87E9A3+GameAddr;
+		memcpy(LPVOID(GameAddr+0x87E9BF),&tmp,4);
+		patch(0x87E9C3,"\x57\x51\xE8\xBC\xD2\xE6\xFF\x83\xC4\x14\x58\x57\x8D\x4C\x24\x18\xFF\xE0");
+		patch(0x339B94,"\xE8\x17\x4E\x54\x00");
+
+	}
+	//////////////////////////////////////////////////////资源面板
+	if(*p++)
+	{
+
+		patch(0x3604CA,"\x90\x90");
+	}
+	///////////////////////////////////////////////////////允许交易
+	if(*p++)
+	{
+
+
+		patch(0x34E822,"\xB8\xE0\x03\x00");
+
+		patch(0x34E827,"\x90");
+
+		patch(0x34E82A,"\xB8\x64\x90\x90");
+		patch(0x34E82F,"\x90");
+	}
+
+	//////////////////////////////////////////////////////查看技能
+	if(*p++)
+	{
+
+
+		patch(0x28EC8E,"\xEB");
+
+		patch(0x20318C,"\x90\x90\x90\x90\x90\x90");
+		patch(0x34FD28,"\x90\x90");
+		patch(0x34FD66,"\x90\x90\x90\x90");
+	}
+	////////////////////////////////////////////////////////资源条
+	if(*p++)
+	{
+
+	}
+	////////////////////////////////////////////////////////野外显血
+	if(*p++)
+	{
+
+	}
+	////////////////////////////////////////////////////////视野外点击
+	if(*p++)
+	{
+
+
+		patch(0x285C4C,"\x90\x90");
+		patch(0x285C62,"\xEB");
+	}
+
+	/////////////////////////////////////////////////////////////无限取消
+	if(*p++)
+	{
+		patch(0x57B9FC,"\xEB");
+		patch(0x5B2CC7,"\x03");
+		patch(0x5B2CDB,"\x03");
+
+	}
+	////////////////////////////////////////////////////////过-MH
+	if(*p++)
+	{
+		patch(0x3C8407,"\xEB\x11");
+		patch(0x3C8427,"\xEB\x11");
+
+	}
+	//////////////////////////////////////////////////////////反-AH
+	if(*p++)
+	{
+		patch(0x3C6E1C,"\xB8\xFF\x00\x00\x00\xEB");
+		patch(0x3CC2F2,"\xEB");
+	}
+
+	///////////////////////////////////////////////////////////////////
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x87E000,oldpro,&oldpro);
+
+	return TRUE;
+}
+BOOL HackOn_124E()
+{
+	DWORD GameAddr=(DWORD)GetModuleHandle(L"game.dll");
+	DWORD oldpro;
+	BYTE* p=b124E;
+
+
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x87E000,PAGE_EXECUTE_READWRITE,&oldpro);
+	////////////////////////////////////////////////////////////////////////大地图去除迷雾
+	if(*p++)
+	{
+		patch(0x74D1B9,"\xB2\x00\x90\x90\x90\x90");
+	}
+	////////////////////////////Reveal units map
+	if(*p++)
+	{
+
+	patch(0x39EBBC,"\x75");
+	patch(0x3A2030,"\x90");
+	patch(0x3A2031,"\x90");
+	patch(0x3A20DB,"\x90");
+	patch(0x3A20DC,"\x90");
+	}
+	//show invisible
+	if(*p++)
+	{
+
+// 	patch(0x356FFE,"\x90");
+// 	patch(0x356FFF,"\x90");
+// 	patch(0x357000,"\x90");
+	patch(0x362391,"\x3B");
+	patch(0x362394,"\x85");
+	patch(0x39A51B,"\x90");
+	patch(0x39A51C,"\x90");
+	patch(0x39A51D,"\x90");
+	patch(0x39A51E,"\x90");
+	patch(0x39A51F,"\x90");
+	patch(0x39A520,"\x90");
+	patch(0x39A52E,"\x90");
+	patch(0x39A52F,"\x90");
+	patch(0x39A530,"\x90");
+	patch(0x39A531,"\x90");
+	patch(0x39A532,"\x90");
+	patch(0x39A533,"\x90");
+	patch(0x39A534,"\x90");
+	patch(0x39A535,"\x90");
+	patch(0x39A536,"\x33");
+	patch(0x39A537,"\xC0");
+	patch(0x39A538,"\x40");
+	}
+	//show illusions
+	if(*p++)
+	{
+	patch(0x28357C,"\x40");
+	patch(0x28357D,"\xC3");
+	}
+	// 
+	//show items
+	if(*p++)
+	{
+	patch(0x3A201B,"\xEB");
+	patch(0x40A864,"\x90");
+	patch(0x40A865,"\x90");
+	}
+	////////////////////////////////////////////小地图 去除迷雾
+	if(*p++)
+	{
+		patch(0x357065,"\x90\x90");
+	}
+	//Reveal units map minimap
+	if(*p++)
+	{
+	patch(0x361F7C,"\x00");
+	}
+	/////////////////////////////////////////////小地图显示隐形
+	if(*p++)
+	{
+
+	}
+	/////////////////////////////////////////////敌方信号
+	if(*p++)
+	{
+		patch(0x43F9A6,"\x3B");
+		patch(0x43F9A9,"\x85");
+		patch(0x43F9B9,"\x3B");
+		patch(0x43F9BC,"\x85");
+
+	}
+	/////////////////////////////////////////////他人提示
+	if(*p++)
+	{
+		patch(0x3345E9,"\x39\xC0\x0F\x85");
+
+	}
+
+	//enemy hero icons
+	if(*p++)
+	{
+
+		patch(0x371700,"\xE8\x3B\x28\x03\x00\x85\xC0\x0F\x85\x8F\x02\x00\x00\xEB\xC9\x90\x90\x90\x90");
+
+	}
+	/////////////////////////////////////盟友头像
+	if(*p++)
+	{
+		patch(0x371700,"\xE8\x3B\x28\x03\x00\x85\xC0\x0F\x84\x8F\x02\x00\x00\xEB\xC9\x90\x90\x90\x90");
+
+	}
+	////////////////////////////////////////////////////////////数显攻速
+	if(*p++)
+	{
+		patch(0x87EA63,"\x25\x30\x2E\x32\x66\x7C\x52\x00");
+		patch(0x87EA70,"\x8D\x4C\x24\x18\xD9\x44\x24\x60\x83\xEC\x08\xDD\x1C\x24\x68");
+		DWORD tmp=0x87EA63+GameAddr;
+		OD1(L"%08X",GameAddr);
+		OD1(L"%08X",tmp);
+		memcpy(LPVOID(GameAddr+0x87EA7F),&tmp,4);
+		patch(0x87EA83,"\x57\x51\xE8\xBC\xD2\xE6\xFF\x83\xC4\x14\x58\x57\x8D\x4C\x24\x18\xFF\xE0");
+		patch(0x339DF4,"\xE8\x77\x4C\x54\x00");
+
+	}
+	//////////////////////////////////////////////////////////数显移速
+	if(*p++)
+	{
+		patch(0x87EA63,"\x25\x30\x2E\x32\x66\x7C\x52\x00");
+		patch(0x87EA70,"\x8D\x4C\x24\x18\xD9\x44\x24\x60\x83\xEC\x08\xDD\x1C\x24\x68");
+		DWORD tmp=0x87EA63+GameAddr;
+		OD1(L"%08X",GameAddr);
+		OD1(L"%08X",tmp);
+		memcpy(LPVOID(GameAddr+0x87EA7F),&tmp,4);
+		patch(0x87EA83,"\x57\x51\xE8\xBC\xD2\xE6\xFF\x83\xC4\x14\x58\x57\x8D\x4C\x24\x18\xFF\xE0");
+		patch(0x339C54,"\xE8\x17\x4E\x54\x00");
+
+	}
+	//show resources
+	if(*p++)
+	{
+
+	patch(0x36058A,"\x90");
+	patch(0x36058B,"\x90");
+	}
+	///////////////////////////////////////////
+	//enable trade amount
+	if(*p++)
+	{
+	patch(0x34E8E2,"\xB8");
+	patch(0x34E8E3,"\xC8");
+	patch(0x34E8E4,"\x00");
+	patch(0x34E8E5,"\x00");
+	patch(0x34E8E7,"\x90");
+	patch(0x34E8EA,"\xB8");
+	patch(0x34E8EB,"\x64");
+	patch(0x34E8EC,"\x00");
+	patch(0x34E8ED,"\x00");
+	patch(0x34E8EF,"\x90");
+	}
+	if(*p++)
+	{
+
+
+	//show skills
+	patch(0x2031EC,"\x90");
+	patch(0x2031ED,"\x90");
+	patch(0x2031EE,"\x90");
+	patch(0x2031EF,"\x90");
+	patch(0x2031F0,"\x90");
+	patch(0x2031F1,"\x90");
+	patch(0x34FDE8,"\x90");
+	patch(0x34FDE9,"\x90");
+	//show cooldowns
+	patch(0x28ECFE,"\xEB");
+	patch(0x34FE26,"\x90");
+	patch(0x34FE27,"\x90");
+	patch(0x34FE28,"\x90");
+	patch(0x34FE29,"\x90");
+	}
+	//////////////////////////////////////////////资源条
+	if(*p++)
+	{
+
+	}
+	//////////////////////////////////////////////野外显血
+	if(*p++)
+	{
+
+	}
+
+	//clickable units
+	if(*p++)
+	{
+
+	patch(0x285CBC,"\x90");
+	patch(0x285CBD,"\x90");
+	patch(0x285CD2,"\xEB");
+	}
+
+	//////////////////////////////////////////////////无限取消
+	if(*p++)
+	{
+		patch(0x57BA7C,"\xEB");
+		patch(0x5B2D77,"\x03");
+		patch(0x5B2D8B,"\x03");
+
+	}
+	/////////////////////////////////////////////////////过-MH
+	if(*p++)
+	{
+		patch(0x3C84C7,"\xEB\x11");
+		patch(0x3C84E7,"\xEB\x11");
+	}
+	////////////////////////////////////////////////////反-AH
+	if(*p++)
+	{	
+		patch(0x3C6EDC,"\xB8\xFF\x00\x00\x00\xEB");
+		patch(0x3CC3B2,"\xEB");
+
+	}
+// 	///////////////////////////////////////////////////////他人选框
+// 	if(*p++)
+// 	{
+// 
+// 	}
+	//////////////////////////////////////////////////////////////////////////
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x87E000,oldpro,&oldpro);
+	return TRUE;
+}
+BOOL HackOff_120E()
+{
+	DWORD GameAddr=(DWORD)GetModuleHandle(L"game.dll");
+	DWORD oldpro;
+
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x704000,PAGE_EXECUTE_READWRITE,&oldpro);
+
+	patch(0x124DDD,"\x85");
+	patch(0x124DE0,"\x84");
+	patch(0x127B3D,"\x8B\x87\x68");
+	patch(0x12DC1A,"\x74\x08");
+	patch(0x12DC5A,"\x74\x08");
+	patch(0x137BA5,"\xD7\x7F");
+	patch(0x137BAC,"\x84");
+	patch(0x137BB1,"\x8B\x83\x80\x01\x00\x00");
+	patch(0x13B400,"\xD8\x62\x08");
+	patch(0x13BA61,"\x68\x00\x02\x00\x00\x8D\x4D\xA0\x51\x8D\x95\x20\xFD\xFF\xFF\x52\xE8\x56\x7E\x25\x00\x85\xF6\x74\x16\x68\x00\x02\x00\x00\x68");
+	DWORD tmp=0x802CC8+GameAddr;
+	memcpy(LPVOID(0x13BA80+GameAddr),&tmp,4);
+	patch(0x13C3F2,"\x68\x00\x02\x00\x00\x8D\x45\x98\x50\x8D\x8D\x18\xFD\xFF\xFF\x51\xE8\xC5\x74\x25\x00\x85\xF6");
+	patch(0x13C40A,"\x16\x68\x00\x02\x00\x00\x68");
+	tmp=0x802CC8+GameAddr;
+	memcpy(LPVOID(0x13C411+GameAddr),&tmp,4);
+	patch(0x13EF03,"\x75");
+	patch(0x147C53,"\xE4");
+	patch(0x1491A8,"\x01");
+	patch(0x1494E0,"\x85");
+	patch(0x1494E3,"\x84");
+	patch(0x150981,"\x85\xC0");
+	patch(0x1509FE,"\x85\xC0");
+	patch(0x151597,"\x85\xC0");
+	patch(0x151647,"\x85\xC0");
+	patch(0x151748,"\x85\xC0");
+	patch(0x166E5E,"\x85\xC0\x0F\x84\xBB\x03\x00\x00");
+	patch(0x16FE0A,"\x85");
+	patch(0x16FE0C,"\x74\x78");
+	patch(0x17D4C2,"\x75\x0E");
+	patch(0x17D4CC,"\x0F\x85\xB0");
+	patch(0x17D4D0,"\x00\x00");
+	patch(0x1ACFFC,"\xC3\x90");
+	patch(0x1BD5A7,"\x74\x2E");
+	patch(0x1BD5BB,"\x75");
+	patch(0x1BED19,"\x85\xC0");
+	patch(0x1BFABE,"\x75");
+	patch(0x21EAD4,"\x00");
+	patch(0x21EAE8,"\x01");
+	patch(0x23D60F,"\x7A");
+	patch(0x2A07C5,"\x8B\x59\x14\x8B\x49\x10");
+	patch(0x2A0930,"\xC9");
+	patch(0x2C240C,"\x3D\xFF\x00\x00\x00\x76\x05\xC1\xF8\x1F\xF6\xD0");
+	patch(0x2C5A7E,"\xEB\x0D");
+	patch(0x2D34ED,"\x0F\x84\xB2");
+	patch(0x2D34F2,"\x00");
+	patch(0x314A9E,"\x85\xC1");
+	patch(0x321CC4,"\x85");
+	patch(0x321CC7,"\x84");
+	patch(0x321CD7,"\x85");
+	patch(0x321CD9,"\x74");
+	patch(0x406B53,"\x8B\x49\x08");
+	patch(0x442CC0,"\x0F\x84\xDC\x00\x00\x00");
+	patch(0x443375,"\x74\x1E");
+	patch(0x45A641,"\x0F\x84\x60\x01\x00\x00");
+	patch(0x45E79E,"\x0F\x84\x26\x01\x00\x00");
+	patch(0x466527,"\x74\x0F");
+	patch(0x46B258,"\x0F\x84\x91\x00\x00\x00");
+	patch(0x4A11A0,"\x74\x0F");
+	patch(0x54C0BF,"\x0F\x84\xF7\x00\x00\x00");
+	patch(0x5573FE,"\x0F\x84\x61\x01\x00\x00");
+	patch(0x55E15C,"\x74\x4A");
+
+
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x704000,oldpro,&oldpro);
+	return TRUE;
+
+}
+BOOL HackOff_124B()
+{
+	DWORD GameAddr=(DWORD)GetModuleHandle(L"game.dll");
+	DWORD oldpro;
+
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x87E000,PAGE_EXECUTE_READWRITE,&oldpro);
+	patch(0x20318C,"\x0F\x84\x5F\x01\x00\x00");
+	patch(0x28351C,"\xC3\xCC");
+	patch(0x285C4C,"\x74\x2A");
+	patch(0x285C62,"\x75");
+	patch(0x28EC8E,"\x75");
+	patch(0x334529,"\x85");
+	patch(0x33452C,"\x84");
+	patch(0x339B94,"\x57\x8D\x4C\x24\x18");
+	patch(0x339D34,"\x57\x8D");
+	patch(0x339D37,"\x24\x18");
+	patch(0x34E822,"\x8B\x87\x6C\x01");
+	patch(0x34E827,"\x00");
+	patch(0x34E82A,"\x8B\x87\x68\x01");
+	patch(0x34E82F,"\x00");
+	patch(0x34FD28,"\x74\x08");
+	patch(0x34FD66,"\x85\xC0\x74\x08");
+	patch(0x356FA5,"\x88\x01");
+	patch(0x3604CA,"\xEB\x08");
+	patch(0x361EAB,"\x75\x0C");
+	patch(0x361EB0,"\x75\x07\xB9\x01");
+	patch(0x361EB8,"\x02");
+	patch(0x361EBC,"\x01");
+	patch(0x3622D1,"\x85");
+	patch(0x3622D4,"\x84");
+	patch(0x371641,"\xFB\x29");
+	patch(0x37164D,"\x8B\x85\x80\x01\x00\x00");
+	patch(0x39A45B,"\x8B\x97\x98\x01\x00\x00");
+	patch(0x39A46E,"\x0F\xB7\x00\x55\x50\x56\xE8\xF7\x7B\x00\x00");
+	patch(0x3A1F5B,"\x75");
+	patch(0x3A201D,"\x75");
+	patch(0x3C6E1C,"\x3D");
+	patch(0x3C6E21,"\x76");
+	patch(0x3C8407,"\x6A\x00");
+	patch(0x3C8427,"\x6A\x00");
+	patch(0x3CC2F2,"\x74");
+	patch(0x4076CA,"\x75\x0A");
+	patch(0x43F956,"\x85");
+	patch(0x43F959,"\x84");
+	patch(0x43F969,"\x85");
+	patch(0x43F96C,"\x84");
+	patch(0x57B9FC,"\x7A");
+	patch(0x5B2CC7,"\x00");
+	patch(0x5B2CDB,"\x01");
+	patch(0x74D103,"\x88\x14");
+	patch(0x74D106,"\x83\xC6\x01");
+	patch(0x87E9A3,"\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC");
+	patch(0x87E9B0,"\xC3\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xC3\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xC3\xCC\xCC\xCC\xCC");
+
+
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x87E000,oldpro,&oldpro);
+	return TRUE;
+
+}
+BOOL HackOff_124E()
+{
+	DWORD GameAddr=(DWORD)GetModuleHandle(L"game.dll");
+	DWORD oldpro;
+
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x87E000,PAGE_EXECUTE_READWRITE,&oldpro);
+
+		patch(0x2031EC,"\x0F\x84\x5F\x01\x00\x00");
+		patch(0x28357C,"\xC3\xCC");
+		patch(0x285CBC,"\x74\x2A");
+		patch(0x285CD2,"\x75");
+		patch(0x28ECFE,"\x75");
+		patch(0x3345E9,"\x85");
+		patch(0x3345EC,"\x84");
+		patch(0x339C54,"\x57\x8D\x4C\x24\x18");
+		patch(0x339DF4,"\x57\x8D");
+		patch(0x339DF7,"\x24\x18");
+		patch(0x34E8E2,"\x8B\x87\x6C\x01");
+		patch(0x34E8E7	,"\x00");
+		patch(0x34E8EA,"\x8B\x87\x68\x01");
+		patch(0x34E8EF,"\x00");
+		patch(0x34FDE8,"\x74\x08");
+		patch(0x34FE26,"\x85\xC0\x74\x08");
+	patch(0x356FFE,"\x66\x85\xC0");
+		patch(0x357065,"\x88\x01");
+	patch(0x36058A,"\xEB\x08");
+		patch(0x361F7C,"\x01");
+		patch(0x362391,"\x85");
+		patch(0x362394,"\x84");
+	patch(0x371701,"\xFB\x29");
+	patch(0x371708,"\x84");
+	patch(0x37170D,"\x8B\x85\x80\x01\x00\x00");
+		patch(0x39A51B,"\x8B\x97\x98\x01\x00\x00");
+		patch(0x39A52E,"\x0F\xB7\x00\x55\x50\x56\xE8\xF7\x7B\x00\x00");
+		patch(0x39EBBC,"\x74");
+		patch(0x3A201B,"\x75");
+		patch(0x3A2030,"\xEB\x09");
+	patch(0x3A20DB,"\x23\xCA");
+	patch(0x3C6EDC,"\x3D");
+	patch(0x3C6EE1,"\x76");
+	patch(0x3C84C7,"\x6A\x00");
+	patch(0x3C84E7,"\x6A\x00");
+	patch(0x3CC3B2,"\x74");
+		patch(0x40A864,"\x75\x0A");
+		patch(0x43F9A6,"\x85");
+		patch(0x43F9A9,"\x84");
+		patch(0x43F9B9,"\x85");
+		patch(0x43F9BC,"\x84");
+	patch(0x57BA7C,"\x7A");
+	patch(0x5B2D77,"\x00");
+	patch(0x5B2D8B,"\x01");
+		patch(0x74D1B9,"\x8A\x90");
+	DWORD tmp=0xAB7E6C+GameAddr;
+	memcpy(LPVOID(GameAddr+0x74D1BB),&tmp,4);
+		patch(0x87EA63,"\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC");
+		patch(0x87EA70,"\xC3\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xC3\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xCC\xC3\xCC\xCC\xCC\xCC");
+
+	VirtualProtect((LPVOID)(GameAddr+0x01000),0x87E000,oldpro,&oldpro);
+	return TRUE;
+}
+
+
+
+
+
+
+
+
+------------------------------------------------------------
+Sub ziyuan120E() '资源1.20E
+WriteProcessMemory pHandle, &H6F13EF03, VarPtr(&HEB), 1, 0&
+WriteProcessMemory pHandle, &H6F150981, VarPtr(&HEB02), 2, 0&
+WriteProcessMemory pHandle, &H6F1509FE, VarPtr(&HEB02), 2, 0&
+WriteProcessMemory pHandle, &H6F151597, VarPtr(&HEB02), 2, 0&
+WriteProcessMemory pHandle, &H6F151647, VarPtr(&HEB02), 2, 0&
+WriteProcessMemory pHandle, &H6F151748, VarPtr(&HEB02), 2, 0&
+WriteProcessMemory pHandle, &H6F1BED19, VarPtr(&HEB02), 2, 0&
+WriteProcessMemory pHandle, &H6F314A9E, VarPtr(&HEB02), 2, 0&
+WriteProcessMemory pHandle, &H6F21EAD4, VarPtr(&HEB), 1, 0&
+WriteProcessMemory pHandle, &H6F21EAE8, VarPtr(&H3), 1, 0&
+End Sub
+
+Sub ziyuan124B() '资源1.24B
+WriteProcessMemory pHandle, &H6F3604CA, VarPtr(&H9090), 2, 0&
+'WriteProcessMemory pHandle, &H6F150981, VarPtr(&HEB02), 2, 0&
+'WriteProcessMemory pHandle, &H6F1509FE, VarPtr(&HEB02), 2, 0&
+'WriteProcessMemory pHandle, &H6F151597, VarPtr(&HEB02), 2, 0&
+'WriteProcessMemory pHandle, &H6F151647, VarPtr(&HEB02), 2, 0&
+'WriteProcessMemory pHandle, &H6F151748, VarPtr(&HEB02), 2, 0&
+'WriteProcessMemory pHandle, &H6F1BED19, VarPtr(&HEB02), 2, 0&
+'WriteProcessMemory pHandle, &H6F314A9E, VarPtr(&HEB02), 2, 0&
+'WriteProcessMemory pHandle, &H6F21EAD4, VarPtr(&HEB), 1, 0&
+'WriteProcessMemory pHandle, &H6F21EAE8, VarPtr(&H3), 1, 0&
+End Sub
+
+Sub ShowHomeLife120E() '显示己方血条1.20E
+WriteProcessMemory pHandle, &H6F17F133, VarPtr(&HEB), 1, 0&
+End Sub
+Sub HideHomeLife120E() '隐藏己方血条1.20E
+WriteProcessMemory pHandle, &H6F17F133, VarPtr(&H75), 1, 0&
+End Sub
+Sub ShowEndLife120E() '显示敌方血条1.20E
+WriteProcessMemory pHandle, &H6F17F150, VarPtr(&HEB), 1, 0&
+End Sub
+Sub HideEndLife120E() '隐藏敌方血条1.20E
+WriteProcessMemory pHandle, &H6F17F150, VarPtr(&H75), 1, 0&
+End Sub
+
+Sub wxqx124B() '1.24B无限取消
+WriteProcessMemory pHandle, &H6F57B9FC, VarPtr(&HEB), 1, 0&
+WriteProcessMemory pHandle, &H6F5B2CC7, VarPtr(&H3), 1, 0&
+WriteProcessMemory pHandle, &H6F5B2CDB, VarPtr(&H3), 1, 0&
+End Sub
+Sub ShowHomeLife124b() '显示己方血条1.24b
+
+End Sub
+Sub HideHomeLife124b() '隐藏己方血条1.24b
+
+End Sub
+Sub ShowEndLife124b() '显示敌方血条1.24b
+End Sub
+Sub HideEndLife124b() '隐藏敌方血条1.24b
+End Sub
+
+Sub wxqx124E() '1.24E无限取消
+WriteProcessMemory pHandle, &H6F57BA7C, VarPtr(&HEB), 1, 0&
+WriteProcessMemory pHandle, &H6F5B2D77, VarPtr(&H3), 1, 0&
+WriteProcessMemory pHandle, &H6F5B2D8B, VarPtr(&H3), 1, 0&
+End Sub
+Sub ShowHomeLife124e() '显示己方血条1.24e
+End Sub
+Sub HideHomeLife124e() '隐藏己方血条1.24e
+End Sub
+Sub ShowEndLife124e() '显示敌方血条1.24e
+End Sub
+Sub HideEndLife124e() '隐藏敌方血条1.24e
+End Sub
+
+'###########################################################################'
+Sub ShowJiaoYi120E() '启用交易助手1.20E
+Dim MoneyNum As Long
+MoneyNum = FormMain.Money.Text
+WriteProcessMemory pHandle, &H6F127B3D, VarPtr(&HB8), 1, 0&
+WriteProcessMemory pHandle, &H6F127B3E, VarPtr(MoneyNum), 4, 0&
+WriteProcessMemory pHandle, &H6F127B42, VarPtr(&H90), 1, 0&
+End Sub
+
+
+
+
+Sub HideJiaoYi120E() '禁用交易助手1.20E
+WriteProcessMemory pHandle, &H6F127B3D, VarPtr(&H168878B), 4, 0&
+WriteProcessMemory pHandle, &H6F127B41, VarPtr(&H0), 2, 0&
+End Sub
+Sub ShowShiYe120E() '可选视野外单位1.20E
+WriteProcessMemory pHandle, &H6F1BD5A7, VarPtr(&H9090), 2, 0&
+WriteProcessMemory pHandle, &H6F1BD5BB, VarPtr(&HEB), 1, 0&
+End Sub
+Sub HideShiYe120E() '不可选视野外单位1.20E
+WriteProcessMemory pHandle, &H6F1BD5A7, VarPtr(&H2E74), 2, 0&
+WriteProcessMemory pHandle, &H6F1BD5BB, VarPtr(&H75), 1, 0&
+End Sub
+'###########################################################################'
+
+Sub ShowJiaoYi124b() '启用交易助手1.24b
+Dim MoneyNum As Long
+MoneyNum = FormMain.Money.Text
+WriteProcessMemory pHandle, &H6F34E82A, VarPtr(&HB8), 1, 0&
+WriteProcessMemory pHandle, &H6F34E82B, VarPtr(MoneyNum), 4, 0&
+WriteProcessMemory pHandle, &H6F34E82F, VarPtr(&H90), 1, 0&
+End Sub
+Sub HideJiaoYi124b() '禁用交易助手1.24b
+
+End Sub
+Sub ShowShiYe124b() '可选视野外单位1.24b
+    WriteProcessMemory pHandle, &H6F285C4C, VarPtr(&H9090), 2, 0&
+    WriteProcessMemory pHandle, &H6F285C62, VarPtr(&HEB), 1, 0&
+End Sub
+Sub HideShiYe124b() '不可选视野外单位1.24b
+
+End Sub
+
+'###########################################################################'
+Sub ShowJiaoYi124e() '启用交易助手1.24e
+Dim MoneyNum As Long
+MoneyNum = FormMain.Money.Text
+WriteProcessMemory pHandle, &H6F34E8EA, VarPtr(&HB8), 1, 0&
+WriteProcessMemory pHandle, &H6F34E8EB, VarPtr(MoneyNum), 4, 0&
+WriteProcessMemory pHandle, &H6F34E8EF, VarPtr(&H90), 1, 0&
+End Sub
+
+6F34E8EA    8B87 68010000   mov eax,dword ptr ds:[edi+0x168]
+6F34E8F0    33C9            xor ecx,ecx
+6F34E8F2    394C24 10       cmp dword ptr ss:[esp+0x10],ecx
+
+
+
+
+Sub HideJiaoYi124e() '禁用交易助手1.24e
+
+End Sub
+Sub ShowShiYe124e() '可选视野外单位1.24e
+    WriteProcessMemory pHandle, &H6F285CBC, VarPtr(&H9090), 2, 0&
+    WriteProcessMemory pHandle, &H6F285CD2, VarPtr(&HEB), 1, 0&
+End Sub
+Sub HideShiYe124e() '不可选视野外单位1.24e
+
+End Sub
+
+'#########################################################################
+
+
+
+
+1.20e 防秒开始
+6F23D20C    83F9 12         cmp ecx,0x12
+6F23D20F    0F87 9F010000   ja Game.6F23D3B4
+6F23D215    FF248D C0D3236F jmp dword ptr ds:[ecx*4+0x6F23D3C0]
+6F23D21C    8B06            mov eax,dword ptr ds:[esi]
+6F23D21E    8BCE            mov ecx,esi
+
+
+
+6F23D20C   /E9 9F794C00     jmp Game.6F704BB0
+6F23D211   |0001            add byte ptr ds:[ecx],al
+6F23D213   |0000            add byte ptr ds:[eax],al
+6F23D215   |FF248D C0D3236F jmp dword ptr ds:[ecx*4+0x6F23D3C0]
+6F23D21C   |8B06            mov eax,dword ptr ds:[esi]
+
+
+
+6F704BB0    83F9 00         cmp ecx,0x0
+6F704BB3    0F85 03000000   jnz Game.6F704BBC
+6F704BB9    6A 03           push 0x3
+6F704BBB    59              pop ecx
+6F704BBC    83F9 12         cmp ecx,0x12
+6F704BBF  - 0F87 EF8783FF   ja 6EF3D3B4
+6F704BC5  ^ E9 4B86B3FF     jmp Game.6F23D215
+
